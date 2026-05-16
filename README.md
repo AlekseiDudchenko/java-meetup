@@ -2,7 +2,7 @@
 
 Community website for regular Java & JVM developer meetups in the Rhine-Neckar region.
 
-**Live site:** https://alekseidudchenko.github.io/java-meetup
+**Live site:** https://alekseidudchenko.github.io/java-meetup/
 
 ## About
 - Regular evening meetups (every ~2 months)
