@@ -1,6 +1,6 @@
-# Java Meetup · Heidelberg / Mannheim / Karlsruhe
+# Software Developers Meetup · Heidelberg / Mannheim / Karlsruhe
 
-Community website for regular Java & JVM developer meetups in the Rhine-Neckar region.
+Community website for regular Software Developers meetups in the Rhine-Neckar region.
 
 **Live site:** https://alekseidudchenko.github.io/java-meetup/
 
