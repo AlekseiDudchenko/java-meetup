@@ -69,7 +69,7 @@
 
     /* NEXT EVENT */
     .next-event { padding: 44px 40px; border-bottom: 1px solid var(--border); background: var(--accent-dim); position: relative; overflow: hidden; }
-    .next-event::after { content: '#13'; position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 96px; font-weight: 700; color: rgba(74,250,130,0.04); letter-spacing: -0.06em; pointer-events: none; line-height: 1; }
+    .next-event::after { content: '#01'; position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 96px; font-weight: 700; color: rgba(74,250,130,0.04); letter-spacing: -0.06em; pointer-events: none; line-height: 1; }
     .section-label { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; }
     .next-date { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.02em; }
     .next-venue { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
@@ -177,25 +177,20 @@
 
 <!-- STATS -->
 <div class="stats-bar">
-  <div class="stat"><div class="stat-num">12</div><div class="stat-label">meetups held</div></div>
-  <div class="stat"><div class="stat-num">38</div><div class="stat-label">speakers so far</div></div>
-  <div class="stat"><div class="stat-num">1.4k</div><div class="stat-label">total attendees</div></div>
+  <div class="stat"><div class="stat-num">0</div><div class="stat-label">meetups held</div></div>
+  <div class="stat"><div class="stat-num">1</div><div class="stat-label">speaker confirmed</div></div>
+  <div class="stat"><div class="stat-num">#1</div><div class="stat-label">first ever meetup</div></div>
 </div>
 
 <!-- NEXT EVENT -->
 <div class="next-event" id="next">
   <div class="section-label">// next event</div>
-  <div class="next-date">Thu, 19 June 2025 · 18:00</div>
-  <div class="next-venue">SAP SE, Dietmar-Hopp-Allee 16, Walldorf · 5 min from S-Bahn Walldorf</div>
+  <div class="next-date">TBD · 18:00</div>
+  <div class="next-venue">Mafinex Technologiezentrum, Mannheim</div>
   <ul class="talk-list">
     <li>
-      Project Loom in production: one year later
-      <span class="talk-speaker">— Anna Kravtsova, JetBrains</span>
-      <span class="talk-badge">30 min</span>
-    </li>
-    <li>
-      Structured concurrency: patterns and pitfalls
-      <span class="talk-speaker">— Mikhail Orlov, SAP</span>
+      Non-blocking I/O in Java
+      <span class="talk-speaker">— Marat Gainulin</span>
       <span class="talk-badge">30 min</span>
     </li>
     <li>
@@ -210,116 +205,12 @@
 <section id="events">
   <div class="section-header">
     <span class="section-title">// event history</span>
-    <span class="section-count">12 meetups</span>
+    <span class="section-count">0 meetups</span>
   </div>
   <div class="events-list">
-
-    <a class="event-row" href="#">
-      <div class="event-idx">#12</div>
-      <div class="event-when">Apr<br>2025</div>
-      <div>
-        <div class="event-title">Spring Boot 3 &amp; GraalVM Native</div>
-        <div class="tags">
-          <span class="tag hi">native-image</span>
-          <span class="tag">Spring Boot 3</span>
-          <span class="tag">GraalVM</span>
-          <span class="tag">lightning ×3</span>
-        </div>
-      </div>
-      <div class="event-stats">
-        <div class="event-num-big">147</div>
-        <div class="event-num-label">attendees</div>
-      </div>
-    </a>
-
-    <a class="event-row" href="#">
-      <div class="event-idx">#11</div>
-      <div class="event-when">Feb<br>2025</div>
-      <div>
-        <div class="event-title">Kafka Internals &amp; Reactive Streams</div>
-        <div class="tags">
-          <span class="tag hi">Kafka</span>
-          <span class="tag">Reactor</span>
-          <span class="tag">backpressure</span>
-          <span class="tag">lightning ×2</span>
-        </div>
-      </div>
-      <div class="event-stats">
-        <div class="event-num-big">132</div>
-        <div class="event-num-label">attendees</div>
-      </div>
-    </a>
-
-    <a class="event-row" href="#">
-      <div class="event-idx">#10</div>
-      <div class="event-when">Dec<br>2024</div>
-      <div>
-        <div class="event-title">JVM Performance Deep Dive</div>
-        <div class="tags">
-          <span class="tag hi">GC tuning</span>
-          <span class="tag">JFR</span>
-          <span class="tag">profiling</span>
-          <span class="tag">async-profiler</span>
-        </div>
-      </div>
-      <div class="event-stats">
-        <div class="event-num-big">168</div>
-        <div class="event-num-label">attendees</div>
-      </div>
-    </a>
-
-    <a class="event-row" href="#">
-      <div class="event-idx">#09</div>
-      <div class="event-when">Oct<br>2024</div>
-      <div>
-        <div class="event-title">Microservices Without the Hype</div>
-        <div class="tags">
-          <span class="tag">Quarkus</span>
-          <span class="tag">observability</span>
-          <span class="tag">distributed tracing</span>
-        </div>
-      </div>
-      <div class="event-stats">
-        <div class="event-num-big">121</div>
-        <div class="event-num-label">attendees</div>
-      </div>
-    </a>
-
-    <a class="event-row" href="#">
-      <div class="event-idx">#08</div>
-      <div class="event-when">Aug<br>2024</div>
-      <div>
-        <div class="event-title">Testing in the JVM Ecosystem</div>
-        <div class="tags">
-          <span class="tag hi">Testcontainers</span>
-          <span class="tag">JUnit 5</span>
-          <span class="tag">mutation testing</span>
-        </div>
-      </div>
-      <div class="event-stats">
-        <div class="event-num-big">108</div>
-        <div class="event-num-label">attendees</div>
-      </div>
-    </a>
-
-    <a class="event-row" href="#">
-      <div class="event-idx">#07</div>
-      <div class="event-when">Jun<br>2024</div>
-      <div>
-        <div class="event-title">Data Engineering with Java</div>
-        <div class="tags">
-          <span class="tag">Apache Flink</span>
-          <span class="tag">Spark</span>
-          <span class="tag">pipeline design</span>
-          <span class="tag">lightning ×4</span>
-        </div>
-      </div>
-      <div class="event-stats">
-        <div class="event-num-big">139</div>
-        <div class="event-num-label">attendees</div>
-      </div>
-    </a>
-
+    <div class="event-row" style="cursor:default; color: var(--muted2); font-family: var(--mono); font-size: 12px;">
+      No past events yet — come to the first one!
+    </div>
   </div>
 </section>
 
@@ -351,43 +242,19 @@
 <section id="speakers">
   <div class="section-header">
     <span class="section-title">// community speakers</span>
-    <span class="section-count">38 talks given</span>
+    <span class="section-count">1 confirmed</span>
   </div>
   <div class="speakers-grid">
 
     <div class="speaker-card">
-      <div class="avatar" style="background:rgba(74,250,130,0.1);color:#4afa82">AK</div>
-      <div class="speaker-name">Anna Kravtsova</div>
-      <div class="speaker-meta">Project Loom<br>JetBrains</div>
-    </div>
-
-    <div class="speaker-card">
-      <div class="avatar" style="background:rgba(100,160,255,0.1);color:#64a0ff">MO</div>
-      <div class="speaker-name">Mikhail Orlov</div>
-      <div class="speaker-meta">Structured concurrency<br>SAP SE</div>
-    </div>
-
-    <div class="speaker-card">
-      <div class="avatar" style="background:rgba(255,180,80,0.1);color:#ffb450">EV</div>
-      <div class="speaker-name">Elena Volkova</div>
-      <div class="speaker-meta">GC tuning<br>Zalando</div>
-    </div>
-
-    <div class="speaker-card">
-      <div class="avatar" style="background:rgba(200,100,255,0.1);color:#c864ff">DS</div>
-      <div class="speaker-name">Dmitry Shevtsov</div>
-      <div class="speaker-meta">Kafka internals<br>Independent</div>
-    </div>
-
-    <div class="speaker-card">
-      <div class="avatar" style="background:rgba(255,100,100,0.1);color:#ff6464">TM</div>
-      <div class="speaker-name">Thomas Müller</div>
-      <div class="speaker-meta">Testcontainers<br>IONOS</div>
+      <div class="avatar" style="background:rgba(74,250,130,0.1);color:#4afa82">MG</div>
+      <div class="speaker-name">Marat Gainulin</div>
+      <div class="speaker-meta">Non-blocking I/O in Java<br>Meetup #01</div>
     </div>
 
     <div class="speaker-card" style="border: 1px dashed rgba(255,255,255,0.1);">
       <div class="avatar" style="background:rgba(255,255,255,0.04);color:#4a564b">+</div>
-      <div class="speaker-name" style="color:#6b7a6c">You next?</div>
+      <div class="speaker-name" style="color:#6b7a6c">Запостите свой доклад здесь</div>
       <div class="speaker-meta">Submit via CFP below</div>
     </div>
 
