@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Meetup · Heidelberg / Mannheim / Karlsruhe</title>
+  <meta name="description" content="A community of Java & JVM developers in the Rhine-Neckar region. Regular meetups with real-world talks, lightning sessions, and networking.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0f0e; --surface: #141614; --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.14); --text: #e8ede9; --muted: #6b7a6c;
+      --muted2: #4a564b; --accent: #4afa82; --accent-dim: rgba(74,250,130,0.07);
+      --mono: 'JetBrains Mono', monospace; --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.65; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 40px; border-bottom: 1px solid var(--border);
+      background: rgba(13,15,14,0.92); backdrop-filter: blur(14px);
+    }
+    .logo { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+    .logo span { color: var(--muted); font-weight: 400; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero { padding: 96px 40px 80px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+    .hero-glow { position: absolute; top: -80px; right: -80px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(74,250,130,0.055) 0%, transparent 65%); pointer-events: none; }
+    .eyebrow { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 22px; display: flex; align-items: center; gap: 12px; opacity: 0; animation: fadeUp 0.5s 0.05s ease forwards; }
+    .eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--accent); }
+    h1 { font-family: var(--mono); font-size: clamp(36px, 5.5vw, 58px); font-weight: 700; line-height: 1.08; letter-spacing: -0.035em; color: var(--text); max-width: 640px; margin-bottom: 22px; opacity: 0; animation: fadeUp 0.5s 0.12s ease forwards; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero-sub { color: var(--muted); font-size: 15px; font-weight: 300; max-width: 500px; margin-bottom: 40px; line-height: 1.75; opacity: 0; animation: fadeUp 0.5s 0.19s ease forwards; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.5s 0.26s ease forwards; }
+
+    /* BUTTONS */
+    .btn-primary { background: var(--accent); color: #0d0f0e; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 13px 26px; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.15s; text-decoration: none; display: inline-block; }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-secondary { background: transparent; color: var(--text); font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 13px 26px; border: 1px solid var(--border-hover); cursor: pointer; transition: border-color 0.2s, background 0.2s; text-decoration: none; display: inline-block; }
+    .btn-secondary:hover { border-color: var(--accent); background: var(--accent-dim); }
+
+    /* STATS */
+    .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--border); }
+    .stat { padding: 30px 40px; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: var(--mono); font-size: 30px; font-weight: 700; color: var(--accent); letter-spacing: -0.04em; line-height: 1; margin-bottom: 5px; }
+    .stat-label { font-size: 12px; color: var(--muted); }
+
+    /* NEXT EVENT */
+    .next-event { padding: 44px 40px; border-bottom: 1px solid var(--border); background: var(--accent-dim); position: relative; overflow: hidden; }
+    .next-event::after { content: '#13'; position: absolute; right: 40px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 96px; font-weight: 700; color: rgba(74,250,130,0.04); letter-spacing: -0.06em; pointer-events: none; line-height: 1; }
+    .section-label { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; }
+    .next-date { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -0.02em; }
+    .next-venue { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+    .talk-list { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+    .talk-list li { font-size: 14px; color: var(--text); display: flex; align-items: baseline; gap: 10px; }
+    .talk-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; font-family: var(--mono); }
+    .talk-speaker { color: var(--muted); font-size: 13px; }
+    .talk-badge { font-family: var(--mono); font-size: 10px; padding: 2px 7px; border: 1px solid rgba(74,250,130,0.25); color: var(--accent); border-radius: 2px; margin-left: 6px; }
+
+    /* SECTIONS */
+    section { padding: 52px 40px; border-bottom: 1px solid var(--border); }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; }
+    .section-title { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .section-count { font-family: var(--mono); font-size: 11px; color: var(--muted2); }
+
+    /* EVENT LIST */
+    .events-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+    .event-row { background: var(--bg); padding: 22px 24px; display: grid; grid-template-columns: 52px 60px 1fr auto; gap: 20px; align-items: start; cursor: pointer; transition: background 0.15s; text-decoration: none; color: inherit; }
+    .event-row:hover { background: var(--surface); }
+    .event-idx { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--muted2); line-height: 1.2; }
+    .event-when { font-family: var(--mono); font-size: 11px; color: var(--muted); padding-top: 4px; letter-spacing: 0.02em; line-height: 1.5; }
+    .event-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 9px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.03em; padding: 3px 8px; border: 1px solid var(--border); color: var(--muted); border-radius: 2px; }
+    .tag.hi { border-color: rgba(74,250,130,0.28); color: var(--accent); }
+    .event-stats { text-align: right; }
+    .event-num-big { font-family: var(--mono); font-size: 17px; font-weight: 700; color: var(--text); line-height: 1; }
+    .event-num-label { font-family: var(--mono); font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+    /* SPEAKERS */
+    .speakers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1px; background: var(--border); }
+    .speaker-card { background: var(--bg); padding: 22px 20px; cursor: pointer; transition: background 0.15s; }
+    .speaker-card:hover { background: var(--surface); }
+    .avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; font-weight: 700; margin-bottom: 13px; }
+    .speaker-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+    .speaker-meta { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.03em; line-height: 1.5; }
+
+    /* FORMAT */
+    .format-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+    .format-card { background: var(--bg); padding: 28px 24px; }
+    .format-dur { font-family: var(--mono); font-size: 28px; font-weight: 700; color: var(--accent); letter-spacing: -0.03em; margin-bottom: 8px; }
+    .format-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+    .format-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* CFP */
+    .cfp-block { padding: 52px 40px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+    .cfp-title { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.025em; margin-bottom: 10px; }
+    .cfp-sub { color: var(--muted); font-size: 14px; max-width: 500px; line-height: 1.7; }
+    .cfp-note { font-family: var(--mono); font-size: 11px; color: var(--muted2); margin-top: 10px; }
+
+    /* FOOTER */
+    footer { padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+    .footer-logo { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ANIMATION */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 18px; }
+      .hero { padding: 60px 20px 52px; }
+      .stats-bar { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 22px 20px; }
+      .stat:last-child { border-bottom: none; }
+      .next-event, section, .cfp-block { padding: 36px 20px; }
+      .next-event::after { display: none; }
+      .event-row { grid-template-columns: 40px 1fr; grid-template-rows: auto auto; }
+      .event-when { display: none; }
+      .event-stats { grid-column: 2; }
+      .format-grid { grid-template-columns: 1fr; }
+      .cfp-block { grid-template-columns: 1fr; }
+      .footer-links { gap: 14px; }
+      footer { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">Java<span>Meetup</span>.community</a>
+  <ul class="nav-links">
+    <li><a href="#next">Next</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#speakers">Speakers</a></li>
+    <li><a href="#cfp">CFP</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="eyebrow">Heidelberg · Mannheim · Karlsruhe</div>
+  <h1>Java &amp; JVM<br><em>community</em><br>meetup</h1>
+  <p class="hero-sub">Regular evening meetups for developers in the Rhine-Neckar region. Real-world talks, lightning sessions, open networking. No marketing — only production experience.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="#next">Next meetup →</a>
+    <a class="btn-secondary" href="#cfp">Submit a talk</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">12</div><div class="stat-label">meetups held</div></div>
+  <div class="stat"><div class="stat-num">38</div><div class="stat-label">speakers so far</div></div>
+  <div class="stat"><div class="stat-num">1.4k</div><div class="stat-label">total attendees</div></div>
+</div>
+
+<!-- NEXT EVENT -->
+<div class="next-event" id="next">
+  <div class="section-label">// next event</div>
+  <div class="next-date">Thu, 19 June 2025 · 18:00</div>
+  <div class="next-venue">SAP SE, Dietmar-Hopp-Allee 16, Walldorf · 5 min from S-Bahn Walldorf</div>
+  <ul class="talk-list">
+    <li>
+      Project Loom in production: one year later
+      <span class="talk-speaker">— Anna Kravtsova, JetBrains</span>
+      <span class="talk-badge">30 min</span>
+    </li>
+    <li>
+      Structured concurrency: patterns and pitfalls
+      <span class="talk-speaker">— Mikhail Orlov, SAP</span>
+      <span class="talk-badge">30 min</span>
+    </li>
+    <li>
+      Lightning talks · 5 min slots open — submit at the door
+      <span class="talk-badge">open</span>
+    </li>
+  </ul>
+  <a class="btn-primary" href="https://www.meetup.com/" target="_blank" rel="noopener">Register on Meetup.com ↗</a>
+</div>
+
+<!-- EVENT HISTORY -->
+<section id="events">
+  <div class="section-header">
+    <span class="section-title">// event history</span>
+    <span class="section-count">12 meetups</span>
+  </div>
+  <div class="events-list">
+
+    <a class="event-row" href="#">
+      <div class="event-idx">#12</div>
+      <div class="event-when">Apr<br>2025</div>
+      <div>
+        <div class="event-title">Spring Boot 3 &amp; GraalVM Native</div>
+        <div class="tags">
+          <span class="tag hi">native-image</span>
+          <span class="tag">Spring Boot 3</span>
+          <span class="tag">GraalVM</span>
+          <span class="tag">lightning ×3</span>
+        </div>
+      </div>
+      <div class="event-stats">
+        <div class="event-num-big">147</div>
+        <div class="event-num-label">attendees</div>
+      </div>
+    </a>
+
+    <a class="event-row" href="#">
+      <div class="event-idx">#11</div>
+      <div class="event-when">Feb<br>2025</div>
+      <div>
+        <div class="event-title">Kafka Internals &amp; Reactive Streams</div>
+        <div class="tags">
+          <span class="tag hi">Kafka</span>
+          <span class="tag">Reactor</span>
+          <span class="tag">backpressure</span>
+          <span class="tag">lightning ×2</span>
+        </div>
+      </div>
+      <div class="event-stats">
+        <div class="event-num-big">132</div>
+        <div class="event-num-label">attendees</div>
+      </div>
+    </a>
+
+    <a class="event-row" href="#">
+      <div class="event-idx">#10</div>
+      <div class="event-when">Dec<br>2024</div>
+      <div>
+        <div class="event-title">JVM Performance Deep Dive</div>
+        <div class="tags">
+          <span class="tag hi">GC tuning</span>
+          <span class="tag">JFR</span>
+          <span class="tag">profiling</span>
+          <span class="tag">async-profiler</span>
+        </div>
+      </div>
+      <div class="event-stats">
+        <div class="event-num-big">168</div>
+        <div class="event-num-label">attendees</div>
+      </div>
+    </a>
+
+    <a class="event-row" href="#">
+      <div class="event-idx">#09</div>
+      <div class="event-when">Oct<br>2024</div>
+      <div>
+        <div class="event-title">Microservices Without the Hype</div>
+        <div class="tags">
+          <span class="tag">Quarkus</span>
+          <span class="tag">observability</span>
+          <span class="tag">distributed tracing</span>
+        </div>
+      </div>
+      <div class="event-stats">
+        <div class="event-num-big">121</div>
+        <div class="event-num-label">attendees</div>
+      </div>
+    </a>
+
+    <a class="event-row" href="#">
+      <div class="event-idx">#08</div>
+      <div class="event-when">Aug<br>2024</div>
+      <div>
+        <div class="event-title">Testing in the JVM Ecosystem</div>
+        <div class="tags">
+          <span class="tag hi">Testcontainers</span>
+          <span class="tag">JUnit 5</span>
+          <span class="tag">mutation testing</span>
+        </div>
+      </div>
+      <div class="event-stats">
+        <div class="event-num-big">108</div>
+        <div class="event-num-label">attendees</div>
+      </div>
+    </a>
+
+    <a class="event-row" href="#">
+      <div class="event-idx">#07</div>
+      <div class="event-when">Jun<br>2024</div>
+      <div>
+        <div class="event-title">Data Engineering with Java</div>
+        <div class="tags">
+          <span class="tag">Apache Flink</span>
+          <span class="tag">Spark</span>
+          <span class="tag">pipeline design</span>
+          <span class="tag">lightning ×4</span>
+        </div>
+      </div>
+      <div class="event-stats">
+        <div class="event-num-big">139</div>
+        <div class="event-num-label">attendees</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- FORMAT -->
+<section>
+  <div class="section-header">
+    <span class="section-title">// talk formats</span>
+  </div>
+  <div class="format-grid">
+    <div class="format-card">
+      <div class="format-dur">30'</div>
+      <div class="format-name">Main talk + Q&amp;A</div>
+      <div class="format-desc">Deep dive into a topic from real production experience. Slides, live code, or both. 10 minutes Q&amp;A included.</div>
+    </div>
+    <div class="format-card">
+      <div class="format-dur">15'</div>
+      <div class="format-name">Short talk</div>
+      <div class="format-desc">One focused idea, one concrete takeaway. Great for tool introductions, gotchas, or recent learnings.</div>
+    </div>
+    <div class="format-card">
+      <div class="format-dur">5'</div>
+      <div class="format-name">Lightning talk</div>
+      <div class="format-desc">Announced in advance or submitted at the door. No slides required. Lowest barrier to speak — just come and share.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKERS -->
+<section id="speakers">
+  <div class="section-header">
+    <span class="section-title">// community speakers</span>
+    <span class="section-count">38 talks given</span>
+  </div>
+  <div class="speakers-grid">
+
+    <div class="speaker-card">
+      <div class="avatar" style="background:rgba(74,250,130,0.1);color:#4afa82">AK</div>
+      <div class="speaker-name">Anna Kravtsova</div>
+      <div class="speaker-meta">Project Loom<br>JetBrains</div>
+    </div>
+
+    <div class="speaker-card">
+      <div class="avatar" style="background:rgba(100,160,255,0.1);color:#64a0ff">MO</div>
+      <div class="speaker-name">Mikhail Orlov</div>
+      <div class="speaker-meta">Structured concurrency<br>SAP SE</div>
+    </div>
+
+    <div class="speaker-card">
+      <div class="avatar" style="background:rgba(255,180,80,0.1);color:#ffb450">EV</div>
+      <div class="speaker-name">Elena Volkova</div>
+      <div class="speaker-meta">GC tuning<br>Zalando</div>
+    </div>
+
+    <div class="speaker-card">
+      <div class="avatar" style="background:rgba(200,100,255,0.1);color:#c864ff">DS</div>
+      <div class="speaker-name">Dmitry Shevtsov</div>
+      <div class="speaker-meta">Kafka internals<br>Independent</div>
+    </div>
+
+    <div class="speaker-card">
+      <div class="avatar" style="background:rgba(255,100,100,0.1);color:#ff6464">TM</div>
+      <div class="speaker-name">Thomas Müller</div>
+      <div class="speaker-meta">Testcontainers<br>IONOS</div>
+    </div>
+
+    <div class="speaker-card" style="border: 1px dashed rgba(255,255,255,0.1);">
+      <div class="avatar" style="background:rgba(255,255,255,0.04);color:#4a564b">+</div>
+      <div class="speaker-name" style="color:#6b7a6c">You next?</div>
+      <div class="speaker-meta">Submit via CFP below</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CFP -->
+<div class="cfp-block" id="cfp">
+  <div>
+    <div class="section-label">// call for papers — always open</div>
+    <div class="cfp-title">Got something to share?</div>
+    <p class="cfp-sub">5, 15, or 30 minutes — any format. Real experience from production, a war story, a tool you love. First time speaking? We'll help you prepare and give feedback on your proposal.</p>
+    <p class="cfp-note">// We read every submission and respond within 2 weeks</p>
+  </div>
+  <a class="btn-primary" href="https://sessionize.com/" target="_blank" rel="noopener">Submit a talk ↗</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">JavaMeetup.community · Rhine-Neckar · est. 2023</div>
+  <ul class="footer-links">
+    <li><a href="https://t.me/" target="_blank" rel="noopener">Telegram</a></li>
+    <li><a href="https://www.meetup.com/" target="_blank" rel="noopener">Meetup.com</a></li>
+    <li><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></li>
+    <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+    <li><a href="#">Code of Conduct</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
